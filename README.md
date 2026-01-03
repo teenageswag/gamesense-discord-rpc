@@ -21,7 +21,7 @@ This application will allow you to display information about Gamesense in your D
    
 3. Navigate to the source directory
     ```powershell
-    cd src
+    cd .\gamesense-discord-rpc\src\
     ```
     
 4. Install the necessary dependencies
