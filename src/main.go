@@ -13,7 +13,7 @@ import (
 )
 
 var gs *rpc.RPCInfo = rpc.Initialize(
-	"YOUR_APP_ID",
+	"1457019638331347008",
 	"",
 	"Get Good - Get Gamesense",
 	"gs_logo640",
@@ -26,34 +26,26 @@ var gs *rpc.RPCInfo = rpc.Initialize(
 
 func main() {
 
-	log.Info("Проверяем запущен ли discord")
-
-	discordWasLaunched := false
 	if !process.DiscordRunning() {
-		log.Info("Процесс не найден. Пробуем запустить вручную")
+		log.Info("Процесс discord не найден. Пробуем запустить вручную")
 		if !process.LaunchDiscord() {
 			return
 		}
-		discordWasLaunched = true
-		log.Info("Discord запущен, ожидаем полной инициализации...")
-		time.Sleep(8 * time.Second)
-	} else {
-		log.Success("Процесс найден.")
-	}
+		// log.Info("Discord запущен, ожидаем полной инициализации...")
+		// time.Sleep(8 * time.Second)
 
-	log.Info("Ожидание запуска Discord IPC...")
-	if !waitForDiscordPipe(60 * time.Second) {
-		log.Error("Не удалось подключиться к Discord IPC (таймаут)")
-		log.Warning("Попробуйте перезапустить программу через несколько секунд")
-		return
-	}
-
-	if discordWasLaunched {
+		log.Info("Ожидание запуска Discord IPC.")
+		if !waitForDiscordPipe(60 * time.Second) {
+			log.Error("Не удалось подключиться к Discord IPC (таймаут)")
+			log.Warning("Попробуйте перезапустить программу через несколько секунд")
+			return
+		}
 		log.Info("Ожидание готовности Discord RPC...")
 		time.Sleep(3 * time.Second)
-	}
 
-	log.Info("Подключаемся к RPC...")
+	} else {
+		log.Success("Discord найден. Подключаемся к RPC.")
+	}
 
 	var err error
 	maxRetries := 5
@@ -64,7 +56,7 @@ func main() {
 		}
 
 		if strings.Contains(err.Error(), "pipe is being closed") {
-			log.Warning("Pipe ещё не готов, повторная попытка через 2 секунды...")
+			log.Warning("Pipe ещё не готов, повторная попытка через 2 секунды.")
 			time.Sleep(2 * time.Second)
 			continue
 		}
