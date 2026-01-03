@@ -21,7 +21,7 @@ type RPCInfo struct {
 
 func Initialize(id string, state string, details string, largeImage string, largeText string, smallImage string, smallText string, buttonName string, buttonUrl string) *RPCInfo {
 	if id == "" || id == "YOUR_APP_ID" {
-		log.Error("Неверный ID приложения")
+		log.Error("Invalid App ID")
 		return nil
 	}
 	return &RPCInfo{
@@ -58,7 +58,7 @@ func UpdatePresence(rpcInfo *RPCInfo, startTime time.Time) error {
 
 	err := client.SetActivity(activity)
 	if err != nil {
-		log.Error("Ошибка обновления активности: " + err.Error())
+		log.Error("Error updating activity: " + err.Error())
 		return err
 	}
 	return nil

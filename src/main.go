@@ -25,48 +25,49 @@ var gs *rpc.RPCInfo = rpc.Initialize(
 )
 
 func main() {
-
+	// Check if Discord is running
 	if !process.DiscordRunning() {
-		log.Info("Процесс discord не найден. Пробуем запустить вручную")
+		log.Info("Discord process not found. Attempting to launch manually...")
 		if !process.LaunchDiscord() {
 			return
 		}
-		// log.Info("Discord запущен, ожидаем полной инициализации...")
-		// time.Sleep(8 * time.Second)
-
-		log.Info("Ожидание запуска Discord IPC.")
+		// Wait IPC pipe
+		log.Info("Waiting for Discord IPC...")
 		if !waitForDiscordPipe(60 * time.Second) {
-			log.Error("Не удалось подключиться к Discord IPC (таймаут)")
-			log.Warning("Попробуйте перезапустить программу через несколько секунд")
+			log.Error("Failed to connect to Discord IPC (Timeout).")
+			log.Warning("Please try restarting the application.")
 			return
 		}
-		log.Info("Ожидание готовности Discord RPC...")
-		time.Sleep(3 * time.Second)
+		// useless func btw
+		// log.Info("Discord IPC found. Initializing RPC...")
+		// time.Sleep(3 * time.Second)
 
 	} else {
-		log.Success("Discord найден. Подключаемся к RPC.")
+		log.Success("Discord process found. Connecting to RPC...")
 	}
 
 	var err error
 	maxRetries := 5
+	// Attempt login Discord RPC
 	for i := 0; i < maxRetries; i++ {
 		err = client.Login(gs.AppId)
 		if err == nil {
 			break
 		}
 
+		// IMPORTANT CHECK IF DISCORD WAS NOT LAUNCHED INITIALLY
 		if strings.Contains(err.Error(), "pipe is being closed") {
-			log.Warning("Pipe ещё не готов, повторная попытка через 2 секунды.")
+			log.Warning("Pipe not ready, retrying in 2 seconds...")
 			time.Sleep(2 * time.Second)
 			continue
 		}
 
-		log.Error("Не удалось запустить RPC: " + err.Error())
+		log.Error("Failed to start RPC: " + err.Error())
 		return
 	}
 
 	if err != nil {
-		log.Error("Не удалось подключиться после " + string(rune(maxRetries)) + " попыток")
+		log.Error("Failed to connect after " + string(rune(maxRetries)) + " attempts")
 		return
 	}
 
@@ -75,11 +76,11 @@ func main() {
 	startTime := time.Now()
 	err = rpc.UpdatePresence(gs, startTime)
 	if err != nil {
-		log.Error("Не удалось установить активность")
+		log.Error("Failed to set activity")
 		return
 	}
 
-	log.Success("RPC успешно запущен!")
+	log.Success("RPC started successfully!")
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, os.Interrupt)
@@ -92,7 +93,7 @@ func main() {
 		case <-ticker.C:
 			rpc.UpdatePresence(gs, startTime)
 		case <-sigChan:
-			log.Info("Завершение работы RPC")
+			log.Info("Stopping RPC...")
 			return
 		}
 	}
@@ -106,11 +107,11 @@ func waitForDiscordPipe(timeout time.Duration) bool {
 		attemptCount++
 		_, err := os.Stat(`\\.\pipe\discord-ipc-0`)
 		if err == nil {
-			log.Success("Discord IPC pipe обнаружен")
 			return true
 		}
-		if attemptCount%5 == 0 {
-			log.Info("Ожидание IPC pipe...")
+
+		if attemptCount%5 == 0 { // every 5 sec
+			log.Info("Waiting for IPC pipe...")
 		}
 		time.Sleep(1 * time.Second)
 	}

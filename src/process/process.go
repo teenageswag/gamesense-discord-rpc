@@ -30,9 +30,9 @@ func LaunchDiscord() bool {
 
 	err := cmd.Start()
 	if err != nil {
-		log.Error("Не удалось запустить Discord. Сделайте это вручную и попробуйте снова!")
+		log.Error("Failed to launch Discord. Please launch it manually and try again!")
 		return false
 	}
-	log.Success("Discord запущен.")
+	log.Success("Discord launched successfully.")
 	return true
 }
