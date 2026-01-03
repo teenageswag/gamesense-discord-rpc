@@ -12,24 +12,29 @@ This application will allow you to display information about Gamesense in your D
 - [Go](https://go.dev/dl/) (1.20 or newer recommended)
 
 ## Build Instructions
-
-1. Navigate to the source directory
+1. Download the project
+    ```powershell
+    git clone https://github.com/teenageswag/gamesense-discord-rpc.git
+    ```
+    
+2. Navigate to the source directory
     ```powershell
     cd src
     ```
-
-2. Install the necessary dependencies
+    
+3. Replace the string YOUR_APP_ID with your app's ID.
+   
+4. Install the necessary dependencies
     ```powershell
     go mod tidy
     ```
 
-3. Create an executable file (to work in the background):
+5. Create an executable file (to work in the background):
     ```powershell
     go build -ldflags -H=windowsgui -o ../output/gamesense-rpc.exe main.go
     ```
 
-4. Run the created executable file:
-
+6. Run the created executable file:
     ```powershell
     .\output\gamesense-rpc.exe
     ```
