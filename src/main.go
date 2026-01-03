@@ -13,7 +13,7 @@ import (
 )
 
 var gs *rpc.RPCInfo = rpc.Initialize(
-	"1457019638331347008",
+	"YOUR_APP_ID",
 	"",
 	"Get Good - Get Gamesense",
 	"gs_logo640",
@@ -38,7 +38,7 @@ func main() {
 			log.Warning("Please try restarting the application.")
 			return
 		}
-		// useless func btw
+		// useless btw
 		// log.Info("Discord IPC found. Initializing RPC...")
 		// time.Sleep(3 * time.Second)
 
