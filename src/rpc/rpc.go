@@ -7,12 +7,6 @@ import (
 	"github.com/hugolgst/rich-go/client"
 )
 
-/*
-	1. Структура RPC -> Готова
-	2. Функция инициализации RPC -> Готова
-	3. Функция обновления RPC
-*/
-
 type RPCInfo struct {
 	AppId      string
 	State      string
@@ -43,14 +37,12 @@ func Initialize(id string, state string, details string, largeImage string, larg
 	}
 }
 
-func UpdatePresence(rpcInfo *RPCInfo, startTime time.Time) {
+func UpdatePresence(rpcInfo *RPCInfo, startTime time.Time) error {
 	activity := client.Activity{
 		State:      rpcInfo.State,
 		Details:    rpcInfo.Details,
 		LargeImage: rpcInfo.LargeImage,
 		LargeText:  rpcInfo.LargeText,
-		// SmallImage: "rogue",
-		// SmallText:  "Rogue - Level 100",
 
 		Timestamps: &client.Timestamps{
 			Start: &startTime,
@@ -66,8 +58,8 @@ func UpdatePresence(rpcInfo *RPCInfo, startTime time.Time) {
 
 	err := client.SetActivity(activity)
 	if err != nil {
-		// log.Error("Ошибка обновления активности")
-	} else {
-		// log.Info("Активность обновлена")
+		log.Error("Ошибка обновления активности: " + err.Error())
+		return err
 	}
+	return nil
 }
