@@ -17,13 +17,13 @@ This application will allow you to display information about Gamesense in your D
     git clone https://github.com/teenageswag/gamesense-discord-rpc.git
     ```
     
-2. Navigate to the source directory
+2. Replace the string YOUR_APP_ID with your app's ID.
+   
+3. Navigate to the source directory
     ```powershell
     cd src
     ```
     
-3. Replace the string YOUR_APP_ID with your app's ID.
-   
 4. Install the necessary dependencies
     ```powershell
     go mod tidy
