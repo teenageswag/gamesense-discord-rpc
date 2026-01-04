@@ -13,15 +13,15 @@ import (
 )
 
 var gs *rpc.RPCInfo = rpc.Initialize(
-	"YOUR_APP_ID",
-	"",
-	"Get Good - Get Gamesense",
-	"gs_logo640",
-	"gamesense.pub",
-	"",
-	"",
-	"Get Gamesense",
-	"https://gamesense.pub",
+	"YOUR_APP_ID",           // Application ID
+	"YOUR_STATE",            // State
+	"YOUR_DETAILS",          // Details
+	"YOUR_LARGE_IMAGE_KEY",  // Large Image Key
+	"YOUR_LARGE_IMAGE_TEXT", // Large Image Text
+	"YOUR_SMALL_IMAGE_KEY",  // Small Image Key
+	"YOUR_SMALL_IMAGE_TEXT", // Small Image Text
+	"YOUR_BUTTON_1_LABEL",   // Button 1 Label
+	"YOUR_BUTTON_1_URL",     // Button 1 URL
 )
 
 func main() {

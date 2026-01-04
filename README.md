@@ -53,14 +53,17 @@ If you want to customize icons, text, or the App ID, you need to build the proje
 3. **⚙️ Configuration (Required):**
    Open [`main.go`](src/main.go) and find the initialization block:
    ```go
-   var gs *rpc.RPCInfo = rpc.Initialize(
-       "YOUR_APP_ID", // <-- Insert your App ID here
-       "",
-       "Get Good - Get Gamesense",
-       "gs_logo640",  // Large image asset name
-       "gamesense.pub",
-       ...
-   )
+      ar gs *rpc.RPCInfo = rpc.Initialize(
+      	"YOUR_APP_ID",              // Insert your Application ID
+      	"YOUR_STATE",               // Insert your State or leave empty
+      	"YOUR_DETAILS",             // Insert your Details or leave empty
+      	"YOUR_LARGE_IMAGE_KEY",     // Insert your Large Image Key or leave empty
+      	"YOUR_LARGE_IMAGE_TEXT",    // Insert your Large Image Text or leave empty
+      	"YOUR_SMALL_IMAGE_KEY",     // Insert your Small Image Key or leave empty
+      	"YOUR_SMALL_IMAGE_TEXT",    // Insert your Small Image Text or leave empty
+      	"YOUR_BUTTON_1_LABEL",      // Insert your Button 1 Label or leave empty
+      	"YOUR_BUTTON_1_URL",        // Insert your Button 1 URL or leave empty
+      )
    ```
    Replace `YOUR_APP_ID` with your application ID from the [Discord Developer Portal](https://discord.com/developers/applications).
 
