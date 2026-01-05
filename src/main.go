@@ -45,7 +45,7 @@ func main() {
 	} else {
 		log.Success("Discord process found. Connecting to RPC...")
 	}
-	
+
 	// Attempt login Discord RPC
 	var err error
 	maxRetries := 5

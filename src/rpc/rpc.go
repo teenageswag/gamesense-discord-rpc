@@ -24,6 +24,31 @@ func Initialize(id string, state string, details string, largeImage string, larg
 		log.Error("Invalid App ID")
 		return nil
 	}
+	if state == "YOUR_STATE" {
+		state = ""
+	}
+	if details == "YOUR_DETAILS" {
+		details = ""
+	}
+	if largeImage == "YOUR_LARGE_IMAGE" {
+		largeImage = ""
+	}
+	if largeText == "YOUR_LARGE_TEXT" {
+		largeText = ""
+	}
+	if smallImage == "YOUR_SMALL_IMAGE" {
+		smallImage = ""
+	}
+	if smallText == "YOUR_SMALL_TEXT" {
+		smallText = ""
+	}
+	if buttonName == "YOUR_BUTTON_NAME" {
+		buttonName = ""
+	}
+	if buttonUrl == "YOUR_BUTTON_URL" {
+		buttonUrl = ""
+	}
+
 	return &RPCInfo{
 		AppId:      id,
 		State:      state,
