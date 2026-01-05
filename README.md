@@ -66,19 +66,20 @@ If you want to customize icons, text, or the App ID, you need to build the proje
       )
    ```
    Replace `YOUR_APP_ID` with your application ID from the [Discord Developer Portal](https://discord.com/developers/applications).
-
-4. **Install dependencies:**
+   The default values will be ignored and will not be displayed!!!
+   
+5. **Install dependencies:**
    ```bash
    go mod tidy
    ```
 
-5. **Compile the project:**
+6. **Compile the project:**
    This command creates an optimized `.exe` file without a console window (hidden mode):
    ```bash
    go build -ldflags "-H=windowsgui" -o ../output/gamesense-rpc.exe main.go
    ```
 
-6. **Run:**
+7. **Run:**
    The executable will be located in the `output` folder.
    ```bash
    ..\output\gamesense-rpc.exe
