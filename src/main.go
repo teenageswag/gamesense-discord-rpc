@@ -13,15 +13,15 @@ import (
 )
 
 var gs *rpc.RPCInfo = rpc.Initialize(
-	"YOUR_APP_ID",           // Application ID
-	"YOUR_STATE",            // State
-	"YOUR_DETAILS",          // Details
-	"YOUR_LARGE_IMAGE_KEY",  // Large Image Key
-	"YOUR_LARGE_IMAGE_TEXT", // Large Image Text
-	"YOUR_SMALL_IMAGE_KEY",  // Small Image Key
-	"YOUR_SMALL_IMAGE_TEXT", // Small Image Text
-	"YOUR_BUTTON_1_LABEL",   // Button 1 Label
-	"YOUR_BUTTON_1_URL",     // Button 1 URL
+	"1457105534653304845",      // Application ID
+	"YOUR_STATE",               // State
+	"Get Good — Get Gamesense", // Details
+	"gs_logo640",               // Large Image Key
+	"gamesense.pub",            // Large Image Text
+	"YOUR_SMALL_IMAGE_KEY",     // Small Image Key
+	"YOUR_SMALL_IMAGE_TEXT",    // Small Image Text
+	"Get Gamesense",            // Button 1 Label
+	"https://gamesense.pub",    // Button 1 URL
 )
 
 func main() {
@@ -33,7 +33,7 @@ func main() {
 		}
 		// Wait IPC pipe
 		log.Info("Waiting for Discord IPC...")
-		if !waitForDiscordPipe(60 * time.Second) {
+		if !rpc.WaitDiscordPipe(60 * time.Second) {
 			log.Error("Failed to connect to Discord IPC (Timeout).")
 			log.Warning("Please try restarting the application.")
 			return
@@ -97,22 +97,4 @@ func main() {
 		}
 	}
 
-}
-
-func waitForDiscordPipe(timeout time.Duration) bool {
-	deadline := time.Now().Add(timeout)
-	attemptCount := 0
-	for time.Now().Before(deadline) {
-		attemptCount++
-		_, err := os.Stat(`\\.\pipe\discord-ipc-0`)
-		if err == nil {
-			return true
-		}
-
-		if attemptCount%5 == 0 { // every 5 sec
-			log.Info("Waiting for IPC pipe...")
-		}
-		time.Sleep(1 * time.Second)
-	}
-	return false
 }

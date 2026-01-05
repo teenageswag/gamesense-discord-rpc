@@ -1,6 +1,7 @@
 package rpc
 
 import (
+	"os"
 	"rpc/log"
 	"time"
 
@@ -87,4 +88,22 @@ func UpdatePresence(rpcInfo *RPCInfo, startTime time.Time) error {
 		return err
 	}
 	return nil
+}
+
+func WaitDiscordPipe(timeout time.Duration) bool {
+	deadline := time.Now().Add(timeout)
+	attemptCount := 0
+	for time.Now().Before(deadline) {
+		attemptCount++
+		_, err := os.Stat(`\\.\pipe\discord-ipc-0`)
+		if err == nil {
+			return true
+		}
+
+		if attemptCount%5 == 0 { // every 5 sec
+			log.Info("Waiting for IPC pipe...")
+		}
+		time.Sleep(1 * time.Second)
+	}
+	return false
 }
