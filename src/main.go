@@ -45,17 +45,16 @@ func main() {
 	} else {
 		log.Success("Discord process found. Connecting to RPC...")
 	}
-
+	
+	// Attempt login Discord RPC
 	var err error
 	maxRetries := 5
-	// Attempt login Discord RPC
-	for i := 0; i < maxRetries; i++ {
+	for range maxRetries {
 		err = client.Login(gs.AppId)
 		if err == nil {
 			break
 		}
 
-		// IMPORTANT CHECK IF DISCORD WAS NOT LAUNCHED INITIALLY
 		if strings.Contains(err.Error(), "pipe is being closed") {
 			log.Warning("Pipe not ready, retrying in 2 seconds...")
 			time.Sleep(2 * time.Second)
