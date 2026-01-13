@@ -25,28 +25,22 @@ var gs *rpc.RPCInfo = rpc.Initialize(
 )
 
 func main() {
-	// Check if Discord is running
 	if !process.DiscordRunning() {
 		log.Info("Discord process not found. Attempting to launch manually...")
 		if !process.LaunchDiscord() {
 			return
 		}
-		// Wait IPC pipe
 		log.Info("Waiting for Discord IPC...")
 		if !rpc.WaitDiscordPipe(60 * time.Second) {
 			log.Error("Failed to connect to Discord IPC (Timeout).")
 			log.Warning("Please try restarting the application.")
 			return
 		}
-		// useless btw
-		// log.Info("Discord IPC found. Initializing RPC...")
-		// time.Sleep(3 * time.Second)
 
 	} else {
 		log.Success("Discord process found. Connecting to RPC...")
 	}
 
-	// Attempt login Discord RPC
 	var err error
 	maxRetries := 5
 	for range maxRetries {

@@ -23,9 +23,7 @@ func DiscordRunning() bool {
 
 func LaunchDiscord() bool {
 	localAppData := os.Getenv("LOCALAPPDATA")
-
 	discordPath := filepath.Join(localAppData, "Discord", "Update.exe")
-
 	cmd := exec.Command(discordPath, "--processStart", "Discord.exe")
 
 	err := cmd.Start()

@@ -20,46 +20,28 @@ type RPCInfo struct {
 	ButtonUrl  string
 }
 
+func validate(val, placeholder string) string {
+	if val == placeholder {
+		return ""
+	}
+	return val
+}
+
 func Initialize(id string, state string, details string, largeImage string, largeText string, smallImage string, smallText string, buttonName string, buttonUrl string) *RPCInfo {
 	if id == "" || id == "YOUR_APP_ID" {
-		log.Error("Invalid App ID")
-		return nil
-	}
-	if state == "YOUR_STATE" {
-		state = ""
-	}
-	if details == "YOUR_DETAILS" {
-		details = ""
-	}
-	if largeImage == "YOUR_LARGE_IMAGE" {
-		largeImage = ""
-	}
-	if largeText == "YOUR_LARGE_TEXT" {
-		largeText = ""
-	}
-	if smallImage == "YOUR_SMALL_IMAGE" {
-		smallImage = ""
-	}
-	if smallText == "YOUR_SMALL_TEXT" {
-		smallText = ""
-	}
-	if buttonName == "YOUR_BUTTON_NAME" {
-		buttonName = ""
-	}
-	if buttonUrl == "YOUR_BUTTON_URL" {
-		buttonUrl = ""
+		panic("Invalid App ID")
 	}
 
 	return &RPCInfo{
 		AppId:      id,
-		State:      state,
-		Details:    details,
-		LargeImage: largeImage,
-		LargeText:  largeText,
-		SmallImage: smallImage,
-		SmallText:  smallText,
-		ButtonName: buttonName,
-		ButtonUrl:  buttonUrl,
+		State:      validate(state, "YOUR_STATE"),
+		Details:    validate(details, "YOUR_DETAILS"),
+		LargeImage: validate(largeImage, "YOUR_LARGE_IMAGE_KEY"),
+		LargeText:  validate(largeText, "YOUR_LARGE_IMAGE_TEXT"),
+		SmallImage: validate(smallImage, "YOUR_SMALL_IMAGE_KEY"),
+		SmallText:  validate(smallText, "YOUR_SMALL_IMAGE_TEXT"),
+		ButtonName: validate(buttonName, "YOUR_BUTTON_1_LABEL"),
+		ButtonUrl:  validate(buttonUrl, "YOUR_BUTTON_1_URL"),
 	}
 }
 
