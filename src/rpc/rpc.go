@@ -21,19 +21,21 @@ type RPCInfo struct {
 }
 
 func validate(val, placeholder string) string {
+	if val == placeholder && placeholder == "YOUR_APP_ID" {
+		panic("Invalid App ID")
+	}
 	if val == placeholder {
 		return ""
 	}
+
 	return val
 }
 
+
 func Initialize(id string, state string, details string, largeImage string, largeText string, smallImage string, smallText string, buttonName string, buttonUrl string) *RPCInfo {
-	if id == "" || id == "YOUR_APP_ID" {
-		panic("Invalid App ID")
-	}
 
 	return &RPCInfo{
-		AppId:      id,
+		AppId:      validate(id, "YOUR_APP_ID"),
 		State:      validate(state, "YOUR_STATE"),
 		Details:    validate(details, "YOUR_DETAILS"),
 		LargeImage: validate(largeImage, "YOUR_LARGE_IMAGE_KEY"),
