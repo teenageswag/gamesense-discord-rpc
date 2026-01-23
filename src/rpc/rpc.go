@@ -21,14 +21,13 @@ type RPCInfo struct {
 }
 
 func validate(val, placeholder string) string {
-	if val == placeholder && placeholder == "YOUR_APP_ID" {
-		panic("Invalid App ID")
-	}
-	if val == placeholder {
-		return ""
-	}
-
-	return val
+    if (val == placeholder && placeholder == "YOUR_APP_ID") || (val == "" && placeholder == "YOUR_APP_ID") {
+        panic("Invalid App ID")
+    }
+    if val == placeholder || val == "" {
+        return ""
+    }
+    return val
 }
 
 
